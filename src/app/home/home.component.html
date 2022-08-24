@@ -1,0 +1,50 @@
+<p-table #dt [value]="offers"
+         styleClass="p-datatable-customers"
+         responsiveLayout="scroll"
+         [globalFilterFields]="['description']">
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      List of offers
+      <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text"
+                       (input)="applyFilterGlobal($event, 'contains')"
+                       placeholder="Search for description"/>
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th rowspan="2">WO ID</th>
+      <th rowspan="2">Description</th>
+      <th rowspan="2">Received date</th>
+      <th colspan="2">Assigned to</th>
+      <th rowspan="2">Status</th>
+      <th rowspan="2">Priority</th>
+    </tr>
+    <tr>
+      <th>Person Name</th>
+      <th>Status</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{product.work_order_id}}</td>
+      <td>{{product.description}}</td>
+      <td>{{product.received_date}}</td>
+      <td>
+        <div *ngFor="let assigned of product.assigned_to">
+          {{assigned?.person_name}}
+        </div>
+      </td>
+
+      <td>
+        <div *ngFor="let assigned of product.assigned_to">
+          {{assigned?.status}}
+        </div>
+      </td>
+      <td>{{product.status}}</td>
+      <td>{{product.priority}}</td>
+    </tr>
+  </ng-template>
+</p-table>
